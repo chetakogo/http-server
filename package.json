@@ -1,0 +1,26 @@
+{
+  "name": "http-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "forever server.js",
+    "watch": "forever -w server.js"
+
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chetakogo/http-server.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chetakogo/http-server/issues"
+  },
+  "homepage": "https://github.com/chetakogo/http-server#readme",
+  "dependencies": {
+    "forever": "^4.0.3",
+    "koa": "^2.13.4",
+    "koa-body": "^5.0.0"
+  }
+}
