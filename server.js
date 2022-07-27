@@ -4,6 +4,8 @@ const koaBody = require('koa-body');
 const app = new Koa();
 
 
+const tickets = [];
+
 class Tickets {
   constructor(id, name, description, status, created) {
     this.id = id;
@@ -14,10 +16,10 @@ class Tickets {
   }
 }
 
-let ticketFull = [
-  new Tickets(0, 'Install new version', 'Install Windows 10, drivers for printer, MS Office, save documents and mediafiles', false, new Date().toString().slice(4,21)),
-  new Tickets(1, 'Raplace cartridge', 'Replace cartridge for printer Samsung in cabinet #404', true, new Date().toString().slice(4,21)),
-];
+const firstTicket = new Tickets(uuid.v4(), 'Поменять краску в притере, ком. 404', 'Принтер HP LJ 1210, катриджи на складе', true, new Date());
+const secondTicket = new Tickets(uuid.v4(), 'установить обровление KB-1245', 'Пришло критическое обновление для Windows, нужно поставить обновление в следующем приоритете:\n 1. Сервера (незабыть сделать бэкап!)\n 2. Рабочие станции', false, new Date());
+tickets.push(firstTicket);
+tickets.push(secondTicket);
 
 app.use(koaBody({
   urlencoded: true,
