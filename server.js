@@ -1,8 +1,8 @@
 const http = require('http');
+const uuid = require('uuid');
 const Koa = require('koa');
 const koaBody = require('koa-body');
 const app = new Koa();
-
 
 const tickets = [];
 
@@ -71,7 +71,7 @@ app.use(async ctx => {
 
   switch (method) {
     case 'allTickets':
-      ctx.response.body = ticketFull.map((item) => {
+      ctx.response.body = tickets.map((item) => {
         return {
           id: item.id,
           name: item.name,
@@ -82,7 +82,7 @@ app.use(async ctx => {
       break;
     case 'ticketById':
       if (id) {
-        const ticket = ticketFull.find((item) => item.id === id);
+        const ticket = tickets.find((item) => item.id === id);
         if (ticket) {
           ctx.response.body = ticket;
         } else {
@@ -91,28 +91,28 @@ app.use(async ctx => {
       }
       break;
     case 'createTicket':
-      const newId = ticketFull.length;
+      const newId = uuid.v4();
       const created = new Date();
-      ticketFull.push(new Tickets(newId, name, description, false, created));
-      ctx.response.body = ticketFull;
+      tickets.push(new Tickets(newId, name, description, false, created));
+      ctx.response.body = tickets;
       break;
     case 'removeById':
-      const index = ticketFull.findIndex((item) => item.id === id);
-      ticketFull.splice(index, 1);
+      const index = tickets.findIndex((item) => item.id === id);
+      tickets.splice(index, 1);
       ctx.response.body = true;
       break;
     case 'editTicket':
       if (id) {
-        const index = ticketFull.findIndex((item) => item.id === id);
-        ticketFull[index].name = name;
-        ticketFull[index].description = description;
+        const index = tickets.findIndex((item) => item.id === id);
+        tickets[index].name = name;
+        tickets[index].description = description;
       }
       ctx.response.body = true;
       break;
     case 'checkTicket':
       if (id) {
-        const index = ticketFull.findIndex((item) => item.id === id);
-        ticketFull[index].status = status;
+        const index = tickets.findIndex((item) => item.id === id);
+        tickets[index].status = status;
       }
       ctx.response.body = true;
       break;
@@ -123,5 +123,5 @@ app.use(async ctx => {
 });
 
 const server = http.createServer(app.callback());
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 7070;
 server.listen(port, () => console.log('Server started'));
